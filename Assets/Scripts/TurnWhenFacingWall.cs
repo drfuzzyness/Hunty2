@@ -23,12 +23,10 @@ public class TurnWhenFacingWall : MonoBehaviour {
 		// shoot the shot
 		//		RaycastHit info;
 		if( Physics.Raycast( aRay, out aRayHit, detectionDistance ) && aRayHit.collider.gameObject.tag == "Wall" ) {
-			float seed = Random.Range( 0f, 1f );
-			if( seed < .5f ) {
-				transform.Rotate( 0f, -90f, 0f );
-			} else {
-				transform.Rotate( 0f, 90f, 0f );
-			}
+			randomlyRotateLeftOrRight();
+		}
+		else if( Physics.Raycast( aRay, out aRayHit, 1f ) && aRayHit.collider.gameObject.tag != "Wall" ) {
+			randomlyRotateLeftOrRight();
 		}
 	}
 
@@ -41,13 +39,10 @@ public class TurnWhenFacingWall : MonoBehaviour {
 
 	void randomlyRotateLeftOrRight() {
 		float seed = Random.Range( 0f, 1f );
-		if( seed < chanceToTurnLeft ) {
+		if( seed < .5f ) {
 			transform.Rotate( 0f, -90f, 0f );
-		} else if( seed < chanceToTurnLeft + chanceToTurnRight ) {
+		} else {
 			transform.Rotate( 0f, 90f, 0f );
-		}
-		else {
-			transform.Rotate ( 0f, 180f, 0f );
 		}
 	}
 }

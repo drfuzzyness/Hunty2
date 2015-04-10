@@ -10,6 +10,15 @@ public class Hunter : MonoBehaviour {
 	public float visionConeAngle;
 	public float catchRange;
 
+	private Prey thePrey;
+
+	public Prey getPrey() {
+		if( chasing ) {
+			return thePrey;
+		}
+		return null;
+	}
+
 	public bool sees( GameObject target ){
 		Vector3 vectorToPlayer = target.transform.position - transform.position;
 		bool isCloseEnough = vectorToPlayer.magnitude < sightRange;
@@ -36,10 +45,13 @@ public class Hunter : MonoBehaviour {
 	}
 
 	public void chase( GameObject target ) {
-		Debug.Log ("chasing " + target );
-		chasing = true;
-		GetComponent<Mob>().run();
-		StartCoroutine( "tryToCatch", target );
+		if( !chasing ) {
+			Debug.Log ("chasing " + target );
+			thePrey = target.GetComponent<Prey>();
+			chasing = true;
+			GetComponent<Mob>().run();
+			StartCoroutine( "tryToCatch", target );
+		}
 
 	}
 
@@ -50,18 +62,19 @@ public class Hunter : MonoBehaviour {
 			GetComponent<Mob>().run();
 			if(  vectorToHunted.magnitude < catchRange ) {
 				target.SendMessage( "caught" );
+
 				stopChasing();
 			}
 			yield return null;
-			try {
-				string garbage = target.name;
-			} catch {
-				stopChasing();
-			}
+//			try {
+//				string garbage = target.name;
+//			} catch {
+//				stopChasing();
+//			}
 		}
-
+		target.SendMessage("calm");
 		stopChasing();
-		target.GetComponent<Prey>().calm();
+
 	}
 
 	public void stopChasing() {
