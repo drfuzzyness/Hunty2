@@ -16,6 +16,7 @@ GameObject:
   - 114: {fileID: 11421840}
   - 114: {fileID: 11491840}
   - 114: {fileID: 11414410}
+  - 114: {fileID: 11461792}
   m_Layer: 0
   m_Name: Predator
   m_TagString: Untagged
@@ -124,9 +125,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chasing: 0
   hasCaughtPrey: 0
-  sightRange: 60
+  sightRange: 100
   visionConeAngle: 60
-  catchRange: 1
+  catchRange: 2
+--- !u!114 &11461792
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c109c8c70a6fb4e13aae3c239fc8c561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11491840
 MonoBehaviour:
   m_ObjectHideFlags: 1
